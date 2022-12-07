@@ -28,7 +28,7 @@ error-output {
     font-size: 12px;
     font-style: italic;
     color: red;
-    margin-left: 10px;
+    margin-left: 5px;
 }
 
 .logo-content-img {
@@ -70,6 +70,8 @@ error-output {
     opacity: 1;
     margin-top: 15px;
     margin-bottom: 15px;
+
+    
 }
 
 .form-head {
