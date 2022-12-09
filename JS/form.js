@@ -1,3 +1,5 @@
+let isUpdate = false;
+let employeePayrollObj = {};
 window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     const textError = document.querySelector('.text-error');
@@ -20,6 +22,21 @@ window.addEventListener('DOMContentLoaded', (event) => {
     salary.addEventListener('input', function() {
         output.textContent = salary.value;
     });
+
+    const startDate = document.querySelector('#date');
+    startDate.addEventListener("input", function() {
+        const day = document.getElementById("day").value;
+        const month = document.getElementById("month").value;
+        const year = document.getElementById("year").value;
+        const dateError = document.querySelector(".date-error");
+        try {
+            (new EmployeePayroll()).startDate = new Date(parseInt(year), parseInt(month) - 1, parseInt(day));
+            dateError.textContent = "";
+        } catch (e) {
+            dateError.textContent = e;
+        }
+    });
+    checkForUpdate();
 });
 
 const saveForm = () => {
@@ -44,8 +61,7 @@ const createEmployeePayroll = () => {
     employeePayroll.department = getSelectedValues('[name=department]');
     employeePayroll.salary = getInputValueById('#salary');
     employeePayroll.notes = getInputValueById('#notes');
-    let date = getInputValueById('#day') + " " + getInputValueById('#month') + " " + getInputValueById('#year');
-    employeePayroll.date = Date.parse(date);
+    employeePayroll.startDate = new Date(parseInt(document.getElementById("year").value), parseInt(document.getElementById("month").value) - 1, parseInt(document.getElementById("day").value));
     alert(employeePayroll.toString());
     return employeePayroll;
 }
@@ -80,6 +96,21 @@ function createAndUpdateStorage(employeePayroll) {
     localStorage.setItem("EmployeePayrollList", JSON.stringify(employeePayrollList));
 }
 
+const setForm = () => {
+    setValue('#name', employeePayrollObj._name);
+    setSelectedValues('[name=profile]', employeePayrollObj._picture);
+    setSelectedValues('[name=gender]', employeePayrollObj._gender);
+    setSelectedValues('[name=department]', employeePayrollObj._department);
+    setValue('#salary', employeePayrollObj._salary);
+    setTextValue('.salary-output', employeePayrollObj._salary);
+    setValue('#notes', employeePayrollObj._notes);
+    let date = stringifyDate(employeePayrollObj._startDate).split(" ");
+    let month = new Date(date).getMonth() + 1;
+    setValue("#day", date[0]);
+    setValue("#month", month);
+    setValue("#year", date[2]);
+};
+
 const resetForm = () => {
     setValue('#name', '');
     unsetSelectedValues('[name=profile]');
@@ -107,4 +138,38 @@ const setTextValue = (id, value) => {
 const setValue = (id, value) => {
     const element = document.getElementById(id);
     element.value = value;
+}
+
+const setSelectedValues = (propertyValue, value) => {
+    let allItems = document.querySelectorAll(propertyValue);
+    allItems.forEach(item => {
+        if (Array.isArray(value)) {
+            if (value.includes(item.value))
+                item.checked = true;
+        } else if (item.value == value) item.checked = true;
+    });
+};
+
+const checkForUpdate = () => {
+    const employeePayrollJson = localStorage.getItem("editEmp");
+    console.log("MSg", employeePayrollJson);
+    isUpdate = employeePayrollJson ? true : false;
+    employeePayrollObj = JSON.parse(employeePayrollJson);
+    console.log(employeePayrollObj._name);
+    if (isUpdate) {
+        document.querySelector('input[name="name"]').value = employeePayrollObj._name;
+        setSelectedValues('[name=profile]', employeePayrollObj._picture);
+        setSelectedValues('[name=gender]', employeePayrollObj._gender);
+        setSelectedValues('[name=department]', employeePayrollObj._department);
+        document.querySelector('input[name="salary"]').value = employeePayrollObj._salary;
+        setTextValue('.salary-output', employeePayrollObj._salary);
+        document.querySelector('textarea[name="notes"]').value = employeePayrollObj._notes;
+        let date = (employeePayrollObj._startDate).split(/[ ,]/);
+        document.getElementById("day").value = date[2];
+        document.getElementById("year").value = date[3];
+        let month = new Date(date[1] + '-1-01').getMonth() + 1
+        document.getElementById("month").value = month;
+    } else {
+        return;
+    }
 }
