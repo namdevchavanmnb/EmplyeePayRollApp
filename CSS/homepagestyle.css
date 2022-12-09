@@ -148,11 +148,11 @@ td img:first-child {
     margin-right: 10px;
 }
 
-
-
 td img {
     cursor: pointer;
+    
 }
+
 .dept-label {
     background-color: #e9fea5;
     border-radius: 40%;
