@@ -5,7 +5,7 @@ body {
 
 .header {
     padding: 15px 0;
-    background-color: #ffffff;
+    background-color: rgb(231, 226, 226);
 }
 
 .header-content {
@@ -58,7 +58,6 @@ error-output {
     align-items: center;
     border: 0px solid #82a70c;
     min-height: calc(100%-80px);
-    margin: 0 15px;
 }
 
 .form {
