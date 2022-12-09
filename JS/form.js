@@ -1,4 +1,4 @@
-indow.addEventListener('DOMContentLoaded', (event) => {
+window.addEventListener('DOMContentLoaded', (event) => {
     const name = document.querySelector('#name');
     const textError = document.querySelector('.text-error');
     name.addEventListener('input', function() {
@@ -90,10 +90,6 @@ const resetForm = () => {
     setValue('#day', '1');
     setValue('#month', 'January');
     setValue('#year', '2020');
-
-
-
-    
 }
 
 const unsetSelectedValues = (propertyValue) => {
