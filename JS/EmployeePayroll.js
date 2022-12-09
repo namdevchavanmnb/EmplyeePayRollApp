@@ -25,10 +25,16 @@ class EmployeePayroll {
         this._picture = picture;
     }
 
+    get salary() {
+        return this._salary;
+    }
+    set salary(salary) {
+        this._salary = salary;
+    }
+
     get gender() {
         return this._gender;
     }
-
     set gender(gender) {
         this._gender = gender;
     }
@@ -36,38 +42,31 @@ class EmployeePayroll {
     get department() {
         return this._department;
     }
-
     set department(department) {
         this._department = department;
-    }
-
-    get salary() {
-        return this._salary;
-    }
-
-    set salary(salary) {
-        this._salary = salary;
     }
 
     get startDate() {
         return this._startDate;
     }
-
     set startDate(startDate) {
-        this._startDate = startDate;
+        if (startDate <= new Date()) {
+            this._startDate = startDate + 1;
+        } else {
+            throw "Invalid date";
+
+            
+        }
     }
 
-    get notes() {
-        return this._notes;
+    get note() {
+        return this._note;
     }
-
-    set notes(notes) {
-        this._notes = notes;
+    set note(note) {
+        this._note = note;
     }
 
     toString() {
-        const options = { year: 'numeric', month: 'long', day: 'numeric' };
-        const empDate = !this.startDate ? "undefined" : this.startDate.toLocaleDateString("en-US", options);
-        return "id = " + this.id + ", name = " + this.name + ", gender = " + this.gender + ", profile picture = " + this.picture + ", department = " + this.department + ", salary = " + this.salary + ", startDate = " + empDate + ", note = " + this.notes;
+        return "Id: " + this.id + "\nName: " + this.name + "\nPicture: " + this.picture + "\nGender: " + this.gender + "\nDepartment: " + this.department + "\nSalary: " + this.salary + "\nStart date: " + this.startDate + "\nNote: " + this.note;
     }
 }
