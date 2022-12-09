@@ -51,6 +51,7 @@ class EmployeePayroll {
 
     get startDate() {
         return this._startDate;
+        
     }
 
     set startDate(startDate) {
@@ -59,7 +60,6 @@ class EmployeePayroll {
 
     get notes() {
         return this._notes;
-        
     }
 
     set notes(notes) {
