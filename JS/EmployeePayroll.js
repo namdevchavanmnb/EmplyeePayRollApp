@@ -1,17 +1,12 @@
 class EmployeePayroll {
 
-    get id() {
-        return this._id;
-    }
-    set id(id) {
-        this._id = id;
-    }
+    id;
 
     get name() {
         return this._name;
     }
     set name(name) {
-        let nameRegex = /[A-Z][a-z]{2,}/;
+        let nameRegex = /^[A-Z][a-z]{2,}/;
         if (nameRegex.test(name))
             this._name = name;
         else
