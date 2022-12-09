@@ -53,8 +53,6 @@ class EmployeePayroll {
         return this._startDate;
     }
 
-    
-
     set startDate(startDate) {
         if (startDate <= new Date()) {
             this._startDate = startDate + 1;
